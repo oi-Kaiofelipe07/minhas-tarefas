@@ -1,25 +1,20 @@
-import * as enums from '../utils/enums/Tarefa'
-
-class Tarefa {
-  titulo: string
-  prioridade: enums.Prioridade
-  status: enums.Status
-  descricao: string
+class Contato {
   id: number
+  nomeCompleto: string
+  email: string
+  telefone: string
 
   constructor(
-    titulo: string,
-    prioridade: enums.Prioridade,
-    status: enums.Status,
-    descricao: string,
-    id: number
+    id: number,
+    nomeCompleto: string,
+    email: string,
+    telefone: string
   ) {
-    this.titulo = titulo
-    this.prioridade = prioridade
-    this.status = status
-    this.descricao = descricao
     this.id = id
+    this.nomeCompleto = nomeCompleto
+    this.email = email
+    this.telefone = telefone
   }
 }
 
-export default Tarefa
+export default Contato

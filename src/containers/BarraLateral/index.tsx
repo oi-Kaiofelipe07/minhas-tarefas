@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { alteraTermo } from '../../store/reducers/filtro'
 import { RootReducer } from '../../store'
-import * as enums from '../../utils/enums/Tarefa'
 import { Botao, Campo } from '../../styles'
 
-type props = {
+type Props = {
   mostraFiltros: boolean
 }
 
-const BarraLateral = ({ mostraFiltros }: props) => {
+const BarraLateral = ({ mostraFiltros }: Props) => {
   const dispatch = useDispatch()
   const { termo } = useSelector((state: RootReducer) => state.filtro)
   const navigate = useNavigate()
@@ -23,44 +22,19 @@ const BarraLateral = ({ mostraFiltros }: props) => {
           <>
             <Campo
               type="text"
-              placeholder="Buscar"
+              placeholder="Buscar contato"
               value={termo}
               onChange={(evento) => {
                 dispatch(alteraTermo(evento.target.value))
               }}
             />
             <S.Filtros>
-              <FiltroCard
-                valor={enums.Status.PENDENTE}
-                criterio="status"
-                legenda="pendentes"
-              />
-              <FiltroCard
-                valor={enums.Status.CONCLUIDA}
-                criterio="status"
-                legenda="concluidas"
-              />
-              <FiltroCard
-                valor={enums.Prioridade.URGENTE}
-                criterio="prioridade"
-                legenda="urgentes"
-              />
-              <FiltroCard
-                valor={enums.Prioridade.IMPORTANTE}
-                criterio="prioridade"
-                legenda="importantes"
-              />
-              <FiltroCard
-                valor={enums.Prioridade.NORMAL}
-                criterio="prioridade"
-                legenda="normal"
-              />
-              <FiltroCard criterio="todas" legenda="todas" />
+              <FiltroCard criterio="todas" legenda="Todos" />
             </S.Filtros>
           </>
         ) : (
           <Botao onClick={() => navigate('/')} type="button">
-            Voltar a Lista de Tarefas
+            Voltar à Lista de Contatos
           </Botao>
         )}
       </div>

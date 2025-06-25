@@ -7,20 +7,19 @@ export const Form = styled.form`
   font-size: 16px;
   color: #666666;
 
+  input,
+  textarea {
+    margin: 16px 0;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: normal;
+    color: #333;
+  }
+
   textarea {
     resize: none;
-    margin: 16px 0;
-  }
-`
-
-export const Opcoes = styled.div`
-  margin-bottom: 16px;
-
-  p {
-    margin-bottom: 6px;
-  }
-
-  label {
-    margin-right: 6px;
   }
 `

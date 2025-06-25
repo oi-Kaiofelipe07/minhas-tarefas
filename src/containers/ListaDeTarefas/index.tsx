@@ -1,63 +1,38 @@
 import { useSelector } from 'react-redux'
-import Tarefa from '../../components/Tarefa'
+import Contato from '../../components/Tarefa'
 import { MainContainer, Titulo } from '../../styles'
 import { RootReducer } from '../../store'
 
-const ListaDeTarefas = () => {
+const ListaDeContatos = () => {
   const { itens } = useSelector((state: RootReducer) => state.tarefas)
-  const { termo, criterio, valor } = useSelector(
-    (state: RootReducer) => state.filtro
-  )
+  const { termo } = useSelector((state: RootReducer) => state.filtro)
 
-  const filtraTarefas = () => {
-    let tarefasFiltradas = itens
-    if (termo !== undefined) {
-      tarefasFiltradas = tarefasFiltradas.filter(
-        (item) => item.titulo.toLowerCase().search(termo.toLowerCase()) >= 0
-      )
-      if (criterio === 'prioridade') {
-        tarefasFiltradas = tarefasFiltradas.filter(
-          (item) => item.prioridade === valor
-        )
-      } else if (criterio === 'status') {
-        tarefasFiltradas = tarefasFiltradas.filter(
-          (item) => item.status === valor
-        )
-      }
-      return tarefasFiltradas
-    } else {
+  const filtraContatos = () => {
+    if (!termo || termo.trim() === '') {
       return itens
     }
+
+    return itens.filter((contato) =>
+      contato.nomeCompleto.toLowerCase().includes(termo.toLowerCase())
+    )
   }
 
-  const exibeResultadoFiltragem = (quantidade: number) => {
-    let mensagem = ''
-    const complementação =
-      termo !== undefined && termo.length > 0 ? `e "${termo}"` : ''
-
-    if (criterio === 'todas') {
-      mensagem = `${quantidade} tarefas encontradas com: todas ${complementação}`
-    } else {
-      mensagem = `${quantidade} tarefas encontradas com o critério "${`${criterio} = ${valor}`}" ${complementação}`
-    }
-    return mensagem
-  }
-
-  const tarefas = filtraTarefas()
-  const mensagem = exibeResultadoFiltragem(tarefas.length)
+  const contatos = filtraContatos()
+  const mensagem = `${contatos.length} contato(s) encontrado(s)${
+    termo ? ` com "${termo}"` : ''
+  }`
 
   return (
     <MainContainer>
       <Titulo as="p">{mensagem}</Titulo>
       <ul>
-        {tarefas.map((t) => (
-          <li key={t.titulo}>
-            <Tarefa
-              id={t.id}
-              titulo={t.titulo}
-              descricao={t.descricao}
-              prioridade={t.prioridade}
-              status={t.status}
+        {contatos.map((c) => (
+          <li key={c.id}>
+            <Contato
+              id={c.id}
+              nomeCompleto={c.nomeCompleto}
+              email={c.email}
+              telefone={c.telefone}
             />
           </li>
         ))}
@@ -65,4 +40,5 @@ const ListaDeTarefas = () => {
     </MainContainer>
   )
 }
-export default ListaDeTarefas
+
+export default ListaDeContatos
